@@ -58,7 +58,7 @@ public class Clientes {
                 }
             } catch (EOFException eo) {
                 entrada.close();
-                System.out.println("Fichero leído satisfactoriamente.");
+                System.out.println("Fichero clientes leído satisfactoriamente.");
                 //Cliente.aumentarUltimoIdentificador(calcularUltimoIdentificador());
             } catch (ClassNotFoundException e) {
                 System.out.println("No puedo encontrar la clase que tengo que leer.");
@@ -81,7 +81,7 @@ public class Clientes {
         return ultimoIdentificador;
     }
 
-   public void escribirClientes() {
+    public void escribirClientes() {
         File fichero = new File(FICHERO_CLIENTES);
         try {
             ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(fichero));
@@ -120,7 +120,7 @@ public class Clientes {
         if (clientes.containsKey(dni)) {
             return new Cliente(clientes.get(dni));
         } else {
-            return null;
+            throw new ExcepcionAlquilerVehiculos("El cliente introducido no existe");
 
         }
 

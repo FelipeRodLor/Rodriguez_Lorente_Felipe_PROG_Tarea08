@@ -14,6 +14,11 @@ import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
  */
 public enum Opcion {
 
+    SALIR("SALIR") {
+        public void ejecutar() {
+            vista.salir();
+        }
+    },
     ANADIR_CLIENTE("AÑADIR CLIENTE") {
         public void ejecutar() {
             vista.anadirCliente();
@@ -69,10 +74,11 @@ public enum Opcion {
             vista.listarAlquileres();
         }
     },
-    SALIR("SALIR") {
+    LISTAR_ALQUILERES_ABIERTOS("LISTAR ALQUILERES ABIERTOS") {
         public void ejecutar() {
-            vista.salir();
+            vista.ObtenerAlquileresAbiertos();
         }
+
     };
 
     private String mensaje;

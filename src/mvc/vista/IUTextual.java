@@ -54,14 +54,20 @@ public class IUTextual implements IVistaAlquilerVehiculos {
     }
 
     @Override
-    public void listarAlquileres() {
-        Consola.mostrarCabecera("LISTADO DE ALQUILERES");
+    public void abrirAlquiler() {
+        Alquiler nuevoAlquiler = null;
+        Consola.mostrarCabecera("APERTURA DE ALQUILER");
+        String dniAlquiler = Consola.leerDni();
+        String matriculaAlquiler = Consola.leerMatricula();
 
-        for (Alquiler listaAlquileres : controlador.obtenerAlquileres()) {
+        try {
+            Cliente clienteAlquiler = controlador.buscarCliente(dniAlquiler);
+            Vehiculo vehiculoAlquiler = controlador.buscarVehiculo(matriculaAlquiler);
+            controlador.abrirAlquiler(clienteAlquiler, vehiculoAlquiler);
+            System.out.println("\nOperacion realizada");
 
-            if (listaAlquileres != null) {
-                System.out.println(listaAlquileres);
-            }
+        } catch (ExcepcionAlquilerVehiculos e) {
+            System.out.printf("\nERROR: %s%n%n", e.getMessage());
         }
     }
 
@@ -84,20 +90,25 @@ public class IUTextual implements IVistaAlquilerVehiculos {
     }
 
     @Override
-    public void abrirAlquiler() {
-        Alquiler nuevoAlquiler = null;
-        Consola.mostrarCabecera("APERTURA DE ALQUILER");
-        String dniAlquiler = Consola.leerDni();
-        String matriculaAlquiler = Consola.leerMatricula();
+    public void listarAlquileres() {
+        Consola.mostrarCabecera("LISTADO DE ALQUILERES");
 
-        try {
-            Cliente clienteAlquiler = controlador.buscarCliente(dniAlquiler);
-            Vehiculo turismoAlquiler = controlador.buscarVehiculo(matriculaAlquiler);
-            controlador.abrirAlquiler(clienteAlquiler, turismoAlquiler);
-            System.out.println("\nOperacion realizada");
+        for (Alquiler listaAlquileres : controlador.obtenerAlquileres()) {
 
-        } catch (ExcepcionAlquilerVehiculos e) {
-            System.out.printf("\nERROR: %s%n%n", e.getMessage());
+            if (listaAlquileres != null) {
+                System.out.println(listaAlquileres);
+            }
+        }
+    }
+
+    @Override
+    public void ObtenerAlquileresAbiertos() {
+        Consola.mostrarCabecera("LISTADO DE ALQUILERES ABIERTOS");
+        for (Alquiler listaAlquileresAbiertos : controlador.obtenerAlquileresAbiertos()) {
+
+           // if (listaAlquileresAbiertos != null) {
+                System.out.println(listaAlquileresAbiertos);
+            //}
         }
     }
 

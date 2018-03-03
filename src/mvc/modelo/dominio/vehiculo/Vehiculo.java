@@ -4,16 +4,19 @@
  * and open the template in the editor.
  */
 package mvc.modelo.dominio.vehiculo;
+
 import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
+
 /**
  *
  * @author Felipillo
  *
  */
 public abstract class Vehiculo implements Serializable {
+
     private String matricula;
     private String marca;
     private String modelo;
@@ -34,6 +37,7 @@ public abstract class Vehiculo implements Serializable {
     }
 
     public abstract TipoVehiculo getTipoVehiculo();
+
     public abstract double getPrecioEspecifico();
 
     public void setMatricula(String matricula) {
@@ -45,6 +49,7 @@ public abstract class Vehiculo implements Serializable {
             throw new ExcepcionAlquilerVehiculos("La matricula introducida no es correcta");
         }
     }
+
     private boolean compruebaMatricula(String matricula) {
         Pattern patron = Pattern.compile("([0-9]{4})([a-zA-Z]{3})");
         Matcher emparejador = patron.matcher(matricula);
@@ -105,7 +110,7 @@ public abstract class Vehiculo implements Serializable {
     }
 
     public String toString() {
-        return ("MATRICULA; " + matricula + " MARCA; " + marca + " MODELO; " + modelo + datosTecnicos);
+        return ("MATRICULA; " + matricula + " MARCA; " + marca + " MODELO; " + modelo + datosTecnicos + " DISPONIBLE; " + disponible);
     }
 
 }

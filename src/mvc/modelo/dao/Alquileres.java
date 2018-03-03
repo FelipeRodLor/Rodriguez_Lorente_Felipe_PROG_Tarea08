@@ -38,26 +38,26 @@ public class Alquileres {
     }
 
     public void leerAlquileres() {
-       File fichero = new File(FICHERO_ALQUILERES);
-		ObjectInputStream entrada;
-		try {
-			entrada = new ObjectInputStream(new FileInputStream(fichero));
-			try {
-				while (true) {
-					Alquiler alquiler = (Alquiler) entrada.readObject();
-					alquileres.add(alquiler);
-				}
-			} catch (EOFException eo) {
-				entrada.close();
-				System.out.println("Fichero alquileres leído satisfactoriamente.");
-			} catch (ClassNotFoundException e) {
-				System.out.println("No puedo encontrar la clase que tengo que leer.");
-			} catch (IOException e) {
-				System.out.println("Error inesperado de Entrada/Salida.");
-			}
-		} catch (IOException e) {
-			System.out.println("No puedo abrir el fihero de trabajos.");
-		}
+        File fichero = new File(FICHERO_ALQUILERES);
+        ObjectInputStream entrada;
+        try {
+            entrada = new ObjectInputStream(new FileInputStream(fichero));
+            try {
+                while (true) {
+                    Alquiler alquiler = (Alquiler) entrada.readObject();
+                    alquileres.add(alquiler);
+                }
+            } catch (EOFException eo) {
+                entrada.close();
+                System.out.println("Fichero alquileres leído satisfactoriamente.");
+            } catch (ClassNotFoundException e) {
+                System.out.println("No puedo encontrar la clase que tengo que leer.");
+            } catch (IOException e) {
+                System.out.println("Error inesperado de Entrada/Salida.");
+            }
+        } catch (IOException e) {
+            System.out.println("No puedo abrir el fihero de trabajos.");
+        }
     }
 
     public void escribirAlquileres() {
@@ -77,6 +77,8 @@ public class Alquileres {
     }
 
     public void abrir(Cliente cliente, Vehiculo vehiculo) {
+        int posicion = 0;
+        boolean disponible = false;
 
         if (vehiculo.getDisponible()) {
             alquileres.add(new Alquiler(cliente, vehiculo));
@@ -107,5 +109,19 @@ public class Alquileres {
         } else {
             throw new ExcepcionAlquilerVehiculos("El alquiler que se desea cerrar no existe");
         }
+    }
+
+    public List<Alquiler> obtenerAlquileresAbiertos() {
+        int posicion = 0;
+        List<Alquiler> alquileresAbiertos = new Vector<Alquiler>();
+
+        while (posicion < alquileres.size()) {
+            if (alquileres.get(posicion).getDias() == 0) {
+                alquileresAbiertos.add(alquileres.get(posicion));
+            }
+            posicion++;
+        }
+        return alquileresAbiertos;
+
     }
 }

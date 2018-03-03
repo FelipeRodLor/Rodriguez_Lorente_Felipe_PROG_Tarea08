@@ -52,4 +52,6 @@ public interface IModeloAlquilerVehiculos {
 
     void escribirAlquileres();
 
+    List<Alquiler> obtenerAlquileresAbiertos();
+
 }

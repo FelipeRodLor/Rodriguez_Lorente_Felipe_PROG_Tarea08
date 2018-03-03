@@ -108,6 +108,12 @@ public class ModeloAlquilerVehiculos implements IModeloAlquilerVehiculos {
     }
 
     @Override
+    public List<Alquiler> obtenerAlquileresAbiertos() {
+        return alquileres.obtenerAlquileresAbiertos();
+
+    }
+
+    @Override
     public void leerAlquileres() {
         alquileres.leerAlquileres();
     }

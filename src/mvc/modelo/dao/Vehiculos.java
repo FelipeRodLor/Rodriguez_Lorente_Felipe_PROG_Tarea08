@@ -99,7 +99,7 @@ public class Vehiculos {
         if (vehiculos.containsKey(matricula)) {
             return vehiculos.get(matricula);
         } else {
-            return null;
+            throw new ExcepcionAlquilerVehiculos("El vehiculo introducido no existe");
         }
     }
 }

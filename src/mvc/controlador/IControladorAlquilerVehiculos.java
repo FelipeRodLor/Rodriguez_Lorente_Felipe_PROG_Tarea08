@@ -38,6 +38,8 @@ public interface IControladorAlquilerVehiculos {
 
     List<Alquiler> obtenerAlquileres();
 
+    List<Alquiler> obtenerAlquileresAbiertos();
+
     List<Cliente> obtenerClientes();
 
     List<Vehiculo> obtenerVehiculos();
