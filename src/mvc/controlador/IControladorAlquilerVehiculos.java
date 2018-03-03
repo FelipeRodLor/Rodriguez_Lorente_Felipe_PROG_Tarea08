@@ -39,6 +39,8 @@ public interface IControladorAlquilerVehiculos {
     List<Alquiler> obtenerAlquileres();
 
     List<Alquiler> obtenerAlquileresAbiertos();
+    
+    List<Alquiler> obtenerAlquileresCliente(String dni);
 
     List<Cliente> obtenerClientes();
 

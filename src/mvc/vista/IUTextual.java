@@ -7,7 +7,6 @@ package mvc.vista;
 
 import mvc.controlador.IControladorAlquilerVehiculos;
 import utilidades.Consola;
-import mvc.modelo.dao.Alquileres;
 import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
 import mvc.modelo.dominio.Alquiler;
 import mvc.modelo.dominio.vehiculo.Vehiculo;
@@ -55,7 +54,7 @@ public class IUTextual implements IVistaAlquilerVehiculos {
 
     @Override
     public void abrirAlquiler() {
-        Alquiler nuevoAlquiler = null;
+
         Consola.mostrarCabecera("APERTURA DE ALQUILER");
         String dniAlquiler = Consola.leerDni();
         String matriculaAlquiler = Consola.leerMatricula();
@@ -73,7 +72,7 @@ public class IUTextual implements IVistaAlquilerVehiculos {
 
     @Override
     public void cerrarAlquiler() {
-        Alquileres alquileres = null;
+
         Consola.mostrarCabecera("CIERRE DE ALQUILER");
         String dniCierre = Consola.leerDni();
         String matriculaCierre = Consola.leerMatricula();
@@ -102,13 +101,23 @@ public class IUTextual implements IVistaAlquilerVehiculos {
     }
 
     @Override
-    public void ObtenerAlquileresAbiertos() {
+    public void obtenerAlquileresAbiertos() {
         Consola.mostrarCabecera("LISTADO DE ALQUILERES ABIERTOS");
         for (Alquiler listaAlquileresAbiertos : controlador.obtenerAlquileresAbiertos()) {
 
-           // if (listaAlquileresAbiertos != null) {
-                System.out.println(listaAlquileresAbiertos);
-            //}
+            System.out.println(listaAlquileresAbiertos);
+
+        }
+    }
+
+    @Override
+    public void obtenerAlquileresCliente() {
+        String dni = Consola.leerDni();
+        controlador.buscarCliente(dni);
+        Consola.mostrarCabecera("LISTADO DE ALQUILERES DEL CLIENTE");
+        for (Alquiler listaAlquileresCliente : controlador.obtenerAlquileresCliente(dni)) {
+
+            System.out.println(listaAlquileresCliente);
         }
     }
 

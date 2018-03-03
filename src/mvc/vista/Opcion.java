@@ -76,7 +76,12 @@ public enum Opcion {
     },
     LISTAR_ALQUILERES_ABIERTOS("LISTAR ALQUILERES ABIERTOS") {
         public void ejecutar() {
-            vista.ObtenerAlquileresAbiertos();
+            vista.obtenerAlquileresAbiertos();
+        }
+    },
+    LISTAR_ALQUILERES_CLIENTE("LISTAR ALQUILERES DE UN CLIENTE") {
+        public void ejecutar() {
+            vista.obtenerAlquileresCliente();
         }
 
     };

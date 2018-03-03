@@ -46,8 +46,8 @@ public class Consola {
 
     public static String leerDni() {
         System.out.print("Introduce el DNI del cliente: ");
-        String dniBorrar = Entrada.cadena();
-        return dniBorrar;
+        String dni = Entrada.cadena();
+        return dni;
     }
 
     public static String leerMatricula() {
