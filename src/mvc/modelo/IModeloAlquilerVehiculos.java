@@ -38,7 +38,7 @@ public interface IModeloAlquilerVehiculos {
 
     void cerrarAlquiler(Cliente cliente, Vehiculo vehiculo);
 
-    Alquiler[] obtenerAlquileres();
+    List<Alquiler> obtenerAlquileres();
 
     List<Cliente> obtenerClientes();
 

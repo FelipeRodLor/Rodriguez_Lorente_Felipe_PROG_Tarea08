@@ -33,7 +33,7 @@ public class ModeloAlquilerVehiculos implements IModeloAlquilerVehiculos {
     }
 
     @Override
-    public Alquiler[] obtenerAlquileres() {
+    public List<Alquiler> obtenerAlquileres() {
         return alquileres.getAlquiler();
     }
 

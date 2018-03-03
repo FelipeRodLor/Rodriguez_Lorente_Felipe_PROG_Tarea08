@@ -94,7 +94,10 @@ public class Vehiculos {
     }
 
     public Vehiculo buscar(String matricula) {
-
-        return vehiculos.get(matricula);
+        if (vehiculos.containsKey(matricula)) {
+            return vehiculos.get(matricula);
+        } else {
+            return null;
+        }
     }
 }
