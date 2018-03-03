@@ -42,6 +42,8 @@ public interface IVistaAlquilerVehiculos {
     void setControlador(IControladorAlquilerVehiculos controlador);
 
     void obtenerAlquileresAbiertos();
-    
+
     void obtenerAlquileresCliente();
+
+    void obtenerAlquileresVehiculo();
 }

@@ -103,8 +103,8 @@ public class IUTextual implements IVistaAlquilerVehiculos {
     @Override
     public void obtenerAlquileresAbiertos() {
         Consola.mostrarCabecera("LISTADO DE ALQUILERES ABIERTOS");
-        for (Alquiler listaAlquileresAbiertos : controlador.obtenerAlquileresAbiertos()) {
 
+        for (Alquiler listaAlquileresAbiertos : controlador.obtenerAlquileresAbiertos()) {
             System.out.println(listaAlquileresAbiertos);
 
         }
@@ -113,11 +113,39 @@ public class IUTextual implements IVistaAlquilerVehiculos {
     @Override
     public void obtenerAlquileresCliente() {
         String dni = Consola.leerDni();
-        controlador.buscarCliente(dni);
-        Consola.mostrarCabecera("LISTADO DE ALQUILERES DEL CLIENTE");
-        for (Alquiler listaAlquileresCliente : controlador.obtenerAlquileresCliente(dni)) {
 
-            System.out.println(listaAlquileresCliente);
+        try {
+            controlador.buscarCliente(dni);
+            Consola.mostrarCabecera("LISTADO DE ALQUILERES DEL CLIENTE");
+
+            if (controlador.obtenerAlquileresCliente(dni).size() == 0) {
+                System.out.println("No existen alquileres relacionados con el cliente introducido");
+            } else {
+                for (Alquiler listaAlquileresCliente : controlador.obtenerAlquileresCliente(dni)) {
+                    System.out.println(listaAlquileresCliente);
+                }
+            }
+        } catch (ExcepcionAlquilerVehiculos e) {
+            System.out.printf("\nERROR: %s%n%n", e.getMessage());
+        }
+    }
+
+    @Override
+    public void obtenerAlquileresVehiculo() {
+        String matricula = Consola.leerMatricula();
+        try {
+            controlador.buscarVehiculo(matricula);
+            Consola.mostrarCabecera("LISTADO DE ALQUILERES DEL VEHICULO");
+
+            if (controlador.obtenerAlquileresVehiculo(matricula).size() == 0) {
+                System.out.println("No existen alquileres relacionados con el vehiculo introducido");
+            } else {
+                for (Alquiler listaAlquileresVehiculo : controlador.obtenerAlquileresVehiculo(matricula)) {
+                    System.out.println(listaAlquileresVehiculo);
+                }
+            }
+        } catch (ExcepcionAlquilerVehiculos e) {
+            System.out.printf("\nERROR: %s%n%n", e.getMessage());
         }
     }
 

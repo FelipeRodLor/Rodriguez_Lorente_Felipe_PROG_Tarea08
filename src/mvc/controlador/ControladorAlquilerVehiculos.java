@@ -106,9 +106,13 @@ public class ControladorAlquilerVehiculos implements IControladorAlquilerVehicul
     public List<Alquiler> obtenerAlquileresAbiertos() {
         return modelo.obtenerAlquileresAbiertos();
     }
-    
+
     @Override
-    public List<Alquiler> obtenerAlquileresCliente(String dni){
+    public List<Alquiler> obtenerAlquileresCliente(String dni) {
         return modelo.obtenerAlquileresCliente(dni);
+    }
+
+    public List<Alquiler> obtenerAlquileresVehiculo(String matricula) {
+        return modelo.obtenerAlquileresVehiculo(matricula);
     }
 }

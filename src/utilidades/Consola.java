@@ -101,12 +101,12 @@ public class Consola {
         System.out.print("PMA; ");
         int pma = Entrada.entero();
 
-        try{
-        datosTecnicos = new DatosTecnicosVehiculo(cilindrada, numeroPlazas, pma);
-        ordinalTipoVehiculo = elegirTipoVehiculo();
-        nuevoVehiculo = TipoVehiculo.getTipoVehiculoSegunOridnal(ordinalTipoVehiculo).getInstancia(matricula, marca, modelo, datosTecnicos);
-        
-        }catch (ExcepcionAlquilerVehiculos e){
+        try {
+            datosTecnicos = new DatosTecnicosVehiculo(cilindrada, numeroPlazas, pma);
+            ordinalTipoVehiculo = elegirTipoVehiculo();
+            nuevoVehiculo = TipoVehiculo.getTipoVehiculoSegunOridnal(ordinalTipoVehiculo).getInstancia(matricula, marca, modelo, datosTecnicos);
+
+        } catch (ExcepcionAlquilerVehiculos e) {
             System.out.printf("\nERROR: %s%n%n", e.getMessage());
         }
         return nuevoVehiculo;
