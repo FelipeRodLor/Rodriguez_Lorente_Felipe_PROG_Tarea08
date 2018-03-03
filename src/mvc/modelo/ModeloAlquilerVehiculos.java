@@ -38,7 +38,7 @@ public class ModeloAlquilerVehiculos implements IModeloAlquilerVehiculos {
     }
 
     @Override
-    public Vehiculo[] obtenerVehiculos() {
+    public List<Vehiculo> obtenerVehiculos() {
         return vehiculos.getVehiculo();
     }
 
@@ -91,7 +91,8 @@ public class ModeloAlquilerVehiculos implements IModeloAlquilerVehiculos {
     public void leerVehiculos() {
         vehiculos.leerVehiculos();
     }
- @Override
+
+    @Override
     public void escribirVehiculos() {
         vehiculos.escribirVehiculos();
     }
@@ -110,8 +111,8 @@ public class ModeloAlquilerVehiculos implements IModeloAlquilerVehiculos {
     public void leerAlquileres() {
         alquileres.leerAlquileres();
     }
-    
-     @Override
+
+    @Override
     public void escribirAlquileres() {
         alquileres.escribirAlquileres();
     }

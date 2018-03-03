@@ -33,13 +33,13 @@ public interface IControladorAlquilerVehiculos {
     void cerrarAlquiler(Cliente cliente, Vehiculo turismo);
 
     void comenzar();
-     
+
     void salir();
 
     Alquiler[] obtenerAlquileres();
 
     List<Cliente> obtenerClientes();
 
-    Vehiculo[] obtenerVehiculos();
-    
+    List<Vehiculo> obtenerVehiculos();
+
 }

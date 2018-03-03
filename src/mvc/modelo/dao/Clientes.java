@@ -98,9 +98,9 @@ public class Clientes {
     public void añadir(Cliente cliente) {
 
         if (clientes.containsKey(cliente.getDni())) {
-            clientes.put(cliente.getDni(), cliente);
-        } else {
             throw new ExcepcionAlquilerVehiculos("Ya existe un cliente con el mismo DNI");
+        } else {
+            clientes.put(cliente.getDni(), cliente);
         }
     }
 
