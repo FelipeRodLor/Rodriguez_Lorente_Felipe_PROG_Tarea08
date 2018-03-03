@@ -59,6 +59,7 @@ public class Clientes {
             } catch (EOFException eo) {
                 entrada.close();
                 System.out.println("Fichero leído satisfactoriamente.");
+                //Cliente.aumentarUltimoIdentificador(calcularUltimoIdentificador());
             } catch (ClassNotFoundException e) {
                 System.out.println("No puedo encontrar la clase que tengo que leer.");
             } catch (IOException e) {
@@ -80,11 +81,13 @@ public class Clientes {
         return ultimoIdentificador;
     }
 
-    public void escribirClientes() {
+   public void escribirClientes() {
         File fichero = new File(FICHERO_CLIENTES);
         try {
             ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(fichero));
-            salida.writeObject((Cliente) clientes);
+            for (Cliente cliente : clientes.values()) {
+                salida.writeObject(cliente);
+            }
             salida.close();
             System.out.println("Fichero clientes escrito satisfactoriamente.");
         } catch (FileNotFoundException e) {
@@ -92,7 +95,6 @@ public class Clientes {
         } catch (IOException e) {
             System.out.println("Error inesperado de Entrada/Salida");
         }
-
     }
 
     public void añadir(Cliente cliente) {

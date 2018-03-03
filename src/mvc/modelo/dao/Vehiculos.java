@@ -66,9 +66,11 @@ public class Vehiculos {
         File fichero = new File(FICHERO_VEHICULOS);
         try {
             ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(fichero));
-            salida.writeObject((Vehiculo) vehiculos);
+            for (Vehiculo vehiculo : vehiculos.values()) {
+                salida.writeObject(vehiculo);
+            }
             salida.close();
-            System.out.println("Fichero clientes escrito satisfactoriamente.");
+            System.out.println("Fichero vehiculos escrito satisfactoriamente.");
         } catch (FileNotFoundException e) {
             System.out.println("No puedo crear el fichero de clientes");
         } catch (IOException e) {

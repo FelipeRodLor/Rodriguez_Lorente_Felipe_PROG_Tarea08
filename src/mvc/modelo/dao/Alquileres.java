@@ -5,6 +5,7 @@
  */
 package mvc.modelo.dao;
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -37,31 +38,37 @@ public class Alquileres {
     }
 
     public void leerAlquileres() {
-        File fichero = new File(FICHERO_ALQUILERES);
-        ObjectInputStream entrada;
-        try {
-            entrada = new ObjectInputStream(new FileInputStream(fichero));
-            try {
-                Alquiler alquileres = (Alquiler) entrada.readObject();
-                entrada.close();
-                System.out.println("Fichero clientes leído satisfactoriamente.");
-            } catch (ClassNotFoundException e) {
-                System.out.println("No puedo encontrar la clase que tengo que leer.");
-            } catch (IOException e) {
-                System.out.println("Error inesperado de Entrada/Salida.");
-            }
-        } catch (IOException e) {
-            System.out.println("No puedo abrir el fihero de clientes.");
-        }
+       File fichero = new File(FICHERO_ALQUILERES);
+		ObjectInputStream entrada;
+		try {
+			entrada = new ObjectInputStream(new FileInputStream(fichero));
+			try {
+				while (true) {
+					Alquiler alquiler = (Alquiler) entrada.readObject();
+					alquileres.add(alquiler);
+				}
+			} catch (EOFException eo) {
+				entrada.close();
+				System.out.println("Fichero alquileres leído satisfactoriamente.");
+			} catch (ClassNotFoundException e) {
+				System.out.println("No puedo encontrar la clase que tengo que leer.");
+			} catch (IOException e) {
+				System.out.println("Error inesperado de Entrada/Salida.");
+			}
+		} catch (IOException e) {
+			System.out.println("No puedo abrir el fihero de trabajos.");
+		}
     }
 
     public void escribirAlquileres() {
         File fichero = new File(FICHERO_ALQUILERES);
         try {
             ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(fichero));
-            salida.writeObject((Alquiler) alquileres);
+            for (Alquiler alquiler : alquileres) {
+                salida.writeObject(alquiler);
+            }
             salida.close();
-            System.out.println("Fichero clientes escrito satisfactoriamente.");
+            System.out.println("Fichero alquileres escrito satisfactoriamente.");
         } catch (FileNotFoundException e) {
             System.out.println("No puedo crear el fichero de clientes");
         } catch (IOException e) {

@@ -43,8 +43,8 @@ public class ControladorAlquilerVehiculos implements IControladorAlquilerVehicul
     @Override
     public void salir() {
         modelo.escribirClientes();
-        modelo.escribirAlquileres();
         modelo.escribirVehiculos();
+        modelo.escribirAlquileres();
     }
 
     @Override

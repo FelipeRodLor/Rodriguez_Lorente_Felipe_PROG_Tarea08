@@ -49,7 +49,7 @@ public enum Opcion {
             vista.buscarVehiculo();
         }
     },
-    LISTAR_VEHICULOS("LISTAR VEHICULO") {
+    LISTAR_VEHICULOS("LISTAR VEHICULOS") {
         public void ejecutar() {
             vista.listarVehiculos();
         }
