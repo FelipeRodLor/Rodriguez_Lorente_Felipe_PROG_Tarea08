@@ -9,6 +9,7 @@
  */
 package mvc.controlador;
 
+import java.util.List;
 import mvc.modelo.IModeloAlquilerVehiculos;
 import mvc.modelo.dominio.Alquiler;
 import mvc.modelo.dominio.Cliente;
@@ -82,7 +83,7 @@ public class ControladorAlquilerVehiculos implements IControladorAlquilerVehicul
     }
 
     @Override
-    public Cliente[] obtenerClientes() {
+    public List<Cliente> obtenerClientes() {
         return modelo.obtenerClientes();
     }
 

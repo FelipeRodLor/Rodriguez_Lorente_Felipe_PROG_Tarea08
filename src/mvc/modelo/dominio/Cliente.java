@@ -20,7 +20,7 @@ public class Cliente implements Serializable {
     private String dni;
     private int identificador;
     public DireccionPostal direccionPostal;
-    private static int ultimoIdentificador;
+    private static int ultimoIdentificador = 0;
 
     public Cliente(String nombre, String dni, DireccionPostal direccionPostal) {
 
@@ -47,7 +47,7 @@ public class Cliente implements Serializable {
     }
    
    public static void aumentarUltimoIdentificador(int cantidad) {
-		if (cantidad >= 0)
+		if (cantidad > 0)
 			ultimoIdentificador += cantidad;
 		else
 			throw new ExcepcionAlquilerVehiculos("Sólo puedo aumentar el último identificador");

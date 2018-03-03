@@ -5,6 +5,7 @@
  */
 package mvc.modelo;
 
+import java.util.List;
 import mvc.modelo.dominio.vehiculo.DatosTecnicosVehiculo;
 import mvc.modelo.dao.Alquileres;
 import mvc.modelo.dao.Clientes;
@@ -42,7 +43,7 @@ public class ModeloAlquilerVehiculos implements IModeloAlquilerVehiculos {
     }
 
     @Override
-    public Cliente[] obtenerClientes() {
+    public List<Cliente> obtenerClientes() {
         return clientes.getClientes();
     }
 

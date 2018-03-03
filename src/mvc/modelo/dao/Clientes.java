@@ -5,6 +5,7 @@
  */
 package mvc.modelo.dao;
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -12,6 +13,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Vector;
 import mvc.modelo.dominio.Cliente;
 import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
 
@@ -21,47 +28,53 @@ import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
  */
 public class Clientes {
 
-    private final int MAX_CLIENTES = 3;
-    private Cliente[] clientes;
+    private Map<String, Cliente> clientes;
     private final String FICHERO_CLIENTES = "datos/clientes.dat";
 
     public Clientes() {
-        clientes = new Cliente[MAX_CLIENTES];
+        clientes = new HashMap<String, Cliente>();
     }
 
-    public Cliente[] getClientes() {
-        return clientes.clone();
+    public List<Cliente> getClientes() {
+        List<Cliente> clientesOrdenados = new Vector<Cliente>(clientes.values());
+        Collections.sort(clientesOrdenados, new Comparator<Cliente>() {
+            public int compare(Cliente uno, Cliente otro) {
+                return uno.getNombre().compareTo(otro.getNombre());
+            }
+        });
+        return clientesOrdenados;
     }
 
     public void leerClientes() {
         File fichero = new File(FICHERO_CLIENTES);
         ObjectInputStream entrada;
+
         try {
             entrada = new ObjectInputStream(new FileInputStream(fichero));
             try {
-                clientes = (Cliente[]) entrada.readObject();
+                while (true) {
+                    Cliente cliente = (Cliente) entrada.readObject();
+                    clientes.put(cliente.getDni(), cliente);
+                }
+            } catch (EOFException eo) {
                 entrada.close();
-                System.out.println("Fichero clientes leído satisfactoriamente.");
-                //Cliente.aumentarUltimoIdentificador(calcularUltimoIdentificador());
-
+                System.out.println("Fichero leído satisfactoriamente.");
             } catch (ClassNotFoundException e) {
                 System.out.println("No puedo encontrar la clase que tengo que leer.");
             } catch (IOException e) {
                 System.out.println("Error inesperado de Entrada/Salida.");
             }
         } catch (IOException e) {
-            System.out.println("No puedo abrir el fihero de clientes.");
+            System.out.println("No puedo abrir el fihero de entrada.");
         }
-        
-        
     }
 
     private int calcularUltimoIdentificador() {
         int ultimoIdentificador = 0;
-        int i = 0;
-        while (clientes[i] != null) {
-            if (clientes[i].getIdentificador() > ultimoIdentificador) {
-                ultimoIdentificador = clientes[i].getIdentificador();
+        for (Cliente cliente : clientes.values()) {
+
+            if (cliente.getIdentificador() > ultimoIdentificador) {
+                ultimoIdentificador = cliente.getIdentificador();
             }
         }
         return ultimoIdentificador;
@@ -71,7 +84,7 @@ public class Clientes {
         File fichero = new File(FICHERO_CLIENTES);
         try {
             ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(fichero));
-            salida.writeObject((Cliente[]) clientes);
+            salida.writeObject((Cliente) clientes);
             salida.close();
             System.out.println("Fichero clientes escrito satisfactoriamente.");
         } catch (FileNotFoundException e) {
@@ -79,76 +92,35 @@ public class Clientes {
         } catch (IOException e) {
             System.out.println("Error inesperado de Entrada/Salida");
         }
+
     }
 
     public void añadir(Cliente cliente) {
-        int indice = buscarPrimerIndiceLibreComprobandoExistencia(cliente);
-        if (indiceNoSuperaTamano(indice)) {
-            clientes[indice] = new Cliente(cliente);
+
+        if (clientes.containsKey(cliente.getDni())) {
+            clientes.put(cliente.getDni(), cliente);
         } else {
-            throw new ExcepcionAlquilerVehiculos("El array de clientes está lleno.");
+            throw new ExcepcionAlquilerVehiculos("Ya existe un cliente con el mismo DNI");
         }
-    }
-
-    private int buscarPrimerIndiceLibreComprobandoExistencia(Cliente cliente) {
-        int indice = 0;
-        boolean clienteEncontrado = false;
-        while (indiceNoSuperaTamano(indice) && !clienteEncontrado) {
-            if (clientes[indice] == null) {
-                clienteEncontrado = true;
-            } else if (clientes[indice].getDni().equals(cliente.getDni())) {
-                throw new ExcepcionAlquilerVehiculos("Ya existe un cliente con ese DNI");
-            } else {
-                indice++;
-            }
-        }
-        return indice;
-    }
-
-    private boolean indiceNoSuperaTamano(int indice) {
-        return indice < clientes.length;
     }
 
     public void borrar(String dni) {
 
-        int indice = buscarIndiceCliente(dni);
-        desplazarUnaPosicionHaciaIzquierda(indice);
-    }
-
-    private int buscarIndiceCliente(String dni) {
-
-        int indice = 0;
-        boolean existe = false;
-        while (indiceNoSuperaTamano(indice) && !existe) {
-            if (clientes[indice] != null && clientes[indice].getDni().equals(dni)) {
-                existe = true;
-            } else {
-                indice++;
-            }
-        }
-        if (existe) {
-            return indice;
+        if (clientes.containsKey(dni)) {
+            clientes.remove(dni);
         } else {
-            throw new ExcepcionAlquilerVehiculos("El cliente introducido no existe");
+            throw new ExcepcionAlquilerVehiculos("No existe ningun cliente con el dni introducido");
         }
-    }
-
-    private void desplazarUnaPosicionHaciaIzquierda(int posicion) {
-
-        for (int i = posicion; i < clientes.length - 1 && clientes[i] != null; i++) {
-            clientes[i] = clientes[i + 1];
-        }
-        clientes[clientes.length - 1] = null;
     }
 
     public Cliente buscar(String dni) {
 
-        int posicion = buscarIndiceCliente(dni);
-        if (indiceNoSuperaTamano(posicion)) {
-            return new Cliente(clientes[posicion]);
+        if (clientes.containsKey(dni)) {
+            return new Cliente(clientes.get(dni));
         } else {
             return null;
-        }
-    }
 
+        }
+
+    }
 }

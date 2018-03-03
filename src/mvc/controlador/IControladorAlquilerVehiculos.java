@@ -5,6 +5,7 @@
  */
 package mvc.controlador;
 
+import java.util.List;
 import mvc.modelo.dominio.Alquiler;
 import mvc.modelo.dominio.Cliente;
 import mvc.modelo.dominio.vehiculo.Vehiculo;
@@ -37,7 +38,7 @@ public interface IControladorAlquilerVehiculos {
 
     Alquiler[] obtenerAlquileres();
 
-    Cliente[] obtenerClientes();
+    List<Cliente> obtenerClientes();
 
     Vehiculo[] obtenerVehiculos();
     
